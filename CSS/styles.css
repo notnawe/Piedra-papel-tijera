@@ -4,17 +4,34 @@ body {
     margin-top: 50px;
 }
 
+#opciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: #63af4c;
     color: white;
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s;
+    margin: 5px;
 }
 
 button:hover {
     background-color: #45a049;
+}
+
+#resultado {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#reiniciar {
+    visibility: hidden;
 }

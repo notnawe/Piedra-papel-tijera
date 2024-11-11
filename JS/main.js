@@ -1,48 +1,47 @@
-function jugar() {
-    const opciones = ["piedra", "papel", "tijera"];
+const opciones = ["piedra", "papel", "tijera"];
+const eleccionComputadoraElem = document.getElementById("eleccionComputadora");
+const resultadoJuegoElem = document.getElementById("resultadoJuego");
+const botonReiniciar = document.getElementById("reiniciar");
+
+// Función para generar la elección aleatoria de la computadora
+function eleccionComputadora() {
+    const indice = Math.floor(Math.random() * 3);
+    return opciones[indice];
+}
+
+// Función que determina el ganador
+function determinarGanador(jugador, computadora) {
+    if (jugador === computadora) {
+        return "Empate";
+    } else if (
+        (jugador === "piedra" && computadora === "tijera") ||
+        (jugador === "papel" && computadora === "piedra") ||
+        (jugador === "tijera" && computadora === "papel")
+    ) {
+        return "¡Ganaste!";
+    } else {
+        return "Perdiste, la computadora gana.";
+    }
+}
+
+// Función principal para jugar, llamada al hacer clic en una opción
+function jugar(eleccionJugador) {
+    const eleccionComp = eleccionComputadora();
     
-    // Funcion para generar elección aleatoria de la CPU
-    function eleccionComputadora() {
-        const indice = Math.floor(Math.random() * 3);
-        return opciones[indice];
-    }
+    // Mostrar la elección de la computadora en el DOM
+    eleccionComputadoraElem.textContent = "La computadora eligió: " + eleccionComp;
 
-    // Funcion que determina el ganador
-    function determinarGanador(jugador, computadora) {
-        if (jugador === computadora) {
-            return "Empate";
-        } else if (
-            (jugador === "piedra" && computadora === "tijera") ||
-            (jugador === "papel" && computadora === "piedra") ||
-            (jugador === "tijera" && computadora === "papel")
-        ) {
-            return "¡Ganaste!";
-        } else {
-            return "Perdiste, la CPU gana.";
-        }
-    }
+    // Determinar el resultado y mostrarlo en el DOM
+    const resultado = determinarGanador(eleccionJugador, eleccionComp);
+    resultadoJuegoElem.textContent = resultado;
 
-    // Ciclo para mantener el juego hasta que el usuario decida salir
-    let seguirJugando = true;
-    while (seguirJugando) {
-        let eleccionJugador = prompt("Elige: piedra, papel o tijera").toLowerCase();
+    // Mostrar botón de reiniciar
+    botonReiniciar.style.visibility = "visible";
+}
 
-        // Validación de la entrada del usuario
-        if (!opciones.includes(eleccionJugador)) {
-            alert("Opción no válida. Por favor elige 'piedra', 'papel' o 'tijera'.");
-            continue;
-        }
-
-        let eleccionComp = eleccionComputadora();
-        alert("La computadora eligió: " + eleccionComp);
-
-        // Determinamos el resultado del juego
-        let resultado = determinarGanador(eleccionJugador, eleccionComp);
-        alert(resultado);
-
-        // Confirmamos si el usuario quiere seguir jugando
-        seguirJugando = confirm("¿Quieres jugar de nuevo?");
-    }
-
-    alert("Gracias por jugar. ¡Hasta la próxima!");
+// Función para reiniciar el juego
+function reiniciarJuego() {
+    eleccionComputadoraElem.textContent = "";
+    resultadoJuegoElem.textContent = "";
+    botonReiniciar.style.display = "hidden";
 }

@@ -2,6 +2,9 @@ const opciones = ["piedra", "papel", "tijera"];
 const eleccionComputadoraElem = document.getElementById("eleccionComputadora");
 const resultadoJuegoElem = document.getElementById("resultadoJuego");
 const botonReiniciar = document.getElementById("reiniciar");
+const historialElem = document.getElementById("historial");
+
+let historial = []; // Array para almacenar el historial de juegos
 
 // Función para generar la elección aleatoria de la computadora
 function eleccionComputadora() {
@@ -24,6 +27,17 @@ function determinarGanador(jugador, computadora) {
     }
 }
 
+// Función para actualizar el historial en el DOM
+function actualizarHistorial() {
+    historialElem.innerHTML = ""; // Limpiar el historial anterior
+
+    historial.forEach((juego, index) => {
+        const li = document.createElement("li");
+        li.textContent = `Juego ${index + 1}: Elegiste ${juego.jugador}, la computadora eligió ${juego.computadora}. Resultado: ${juego.resultado}`;
+        historialElem.appendChild(li);
+    });
+}
+
 // Función principal para jugar, llamada al hacer clic en una opción
 function jugar(eleccionJugador) {
     const eleccionComp = eleccionComputadora();
@@ -35,6 +49,16 @@ function jugar(eleccionJugador) {
     const resultado = determinarGanador(eleccionJugador, eleccionComp);
     resultadoJuegoElem.textContent = resultado;
 
+    // Guardar el juego en el historial
+    historial.push({
+        jugador: eleccionJugador,
+        computadora: eleccionComp,
+        resultado: resultado
+    });
+
+    // Actualizar el historial en la página
+    actualizarHistorial();
+
     // Mostrar botón de reiniciar
     botonReiniciar.style.visibility = "visible";
 }
@@ -43,5 +67,5 @@ function jugar(eleccionJugador) {
 function reiniciarJuego() {
     eleccionComputadoraElem.textContent = "";
     resultadoJuegoElem.textContent = "";
-    botonReiniciar.style.display = "hidden";
+    botonReiniciar.style.visibility = "hidden"; // Ocultar nuevamente el botón de reiniciar
 }

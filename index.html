@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piedra, Papel o Tijera</title>
-    <link rel="stylesheet" href="/CSS/styles.css">
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
 <body>
 
-    <h1>¡Juguemos Piedra, Papel o Tijera!</h1>
+    <h1>¡Piedra, Papel o Tijera!</h1>
 
     <div id="opciones">
         <button onclick="jugar('piedra')">Piedra</button>
         <button onclick="jugar('papel')">Papel</button>
         <button onclick="jugar('tijera')">Tijera</button>
+        <button id="reiniciar" onclick="reiniciarJuego()">Reiniciar Juego</button>
     </div>
 
     <div id="resultado">
@@ -21,8 +22,9 @@
         <p id="resultadoJuego"></p>
     </div>
 
-    <button id="reiniciar" onclick="reiniciarJuego()">Reiniciar Juego</button>
+    <h2>Historial de Juegos</h2>
+    <ul id="historial"></ul> <!-- Lista para mostrar el historial -->
 
-    <script src="/JS/main.js"></script>
+    <script src="JS/main.js"></script>
 </body>
 </html>

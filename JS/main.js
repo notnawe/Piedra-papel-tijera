@@ -3,8 +3,9 @@ const eleccionComputadoraElem = document.getElementById("eleccionComputadora");
 const resultadoJuegoElem = document.getElementById("resultadoJuego");
 const botonReiniciar = document.getElementById("reiniciar");
 const historialElem = document.getElementById("historial");
+const botonMostrarHistorial = document.getElementById("mostrarHistorial");
 
-let historial = []; // Array para almacenar el historial de juegos
+let historial = JSON.parse(localStorage.getItem("historial")) || []; // Recuperar historial del localStorage o inicializarlo vacío
 
 // Función para generar la elección aleatoria de la computadora
 function eleccionComputadora() {
@@ -33,12 +34,12 @@ function actualizarHistorial() {
 
     historial.forEach((juego, index) => {
         const li = document.createElement("li");
-        li.textContent = `Juego ${index + 1}: Elegiste ${juego.jugador}, la computadora eligió ${juego.computadora}. Resultado: ${juego.resultado}`;
+        li.textContent = `Juego ${index + 1}: Tú elegiste ${juego.jugador}, la computadora eligió ${juego.computadora}. Resultado: ${juego.resultado}`;
         historialElem.appendChild(li);
     });
 }
 
-// Función principal para jugar, llamada al hacer clic en una opción
+// Función para jugar, llamada al hacer clic en una opción
 function jugar(eleccionJugador) {
     const eleccionComp = eleccionComputadora();
     
@@ -56,8 +57,8 @@ function jugar(eleccionJugador) {
         resultado: resultado
     });
 
-    // Actualizar el historial en la página
-    actualizarHistorial();
+    // Guardar el historial en el localStorage
+    localStorage.setItem("historial", JSON.stringify(historial));
 
     // Mostrar botón de reiniciar
     botonReiniciar.style.visibility = "visible";
@@ -68,4 +69,16 @@ function reiniciarJuego() {
     eleccionComputadoraElem.textContent = "";
     resultadoJuegoElem.textContent = "";
     botonReiniciar.style.visibility = "hidden"; // Ocultar nuevamente el botón de reiniciar
+}
+
+// Función para mostrar el historial
+function mostrarHistorial() {
+    if (historialElem.style.display === "none") {
+        actualizarHistorial(); // Actualizar el contenido del historial
+        historialElem.style.display = "block"; // Mostrar el historial
+        botonMostrarHistorial.textContent = "Ocultar Historial";
+    } else {
+        historialElem.style.display = "none"; // Ocultar el historial
+        botonMostrarHistorial.textContent = "Mostrar Historial";
+    }
 }

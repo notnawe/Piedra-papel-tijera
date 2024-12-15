@@ -5,15 +5,36 @@ const botonReiniciar = document.getElementById("reiniciar");
 const historialElem = document.getElementById("historial");
 const botonMostrarHistorial = document.getElementById("mostrarHistorial");
 
-let historial = JSON.parse(localStorage.getItem("historial")) || []; // Recuperar historial del localStorage o inicializarlo vacío
+let historial = [];
 
-// Función para generar la elección aleatoria de la computadora
+async function cargarHistorial() {
+    try {
+        const respuesta = await fetch("http://localhost:3000/historial");
+        historial = await respuesta.json();
+    } catch (error) {
+        console.error("Error al cargar el historial:", error);
+    }
+}
+
+async function guardarJuegoEnHistorial(juego) {
+    try {
+        await fetch("http://localhost:3000/historial", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(juego),
+        });
+    } catch (error) {
+        console.error("Error al guardar el juego en el historial:", error);
+    }
+}
+
 function eleccionComputadora() {
     const indice = Math.floor(Math.random() * 3);
     return opciones[indice];
 }
 
-// Función que determina el ganador
 function determinarGanador(jugador, computadora) {
     if (jugador === computadora) {
         return "Empate";
@@ -28,57 +49,48 @@ function determinarGanador(jugador, computadora) {
     }
 }
 
-// Función para actualizar el historial en el DOM
 function actualizarHistorial() {
-    historialElem.innerHTML = ""; // Limpiar el historial anterior
-
+    historialElem.innerHTML = "";
     historial.forEach((juego, index) => {
         const li = document.createElement("li");
-        li.textContent = `Juego ${index + 1}: Tú elegiste ${juego.jugador}, la computadora eligió ${juego.computadora}. Resultado: ${juego.resultado}`;
+        li.textContent = `Juego ${index + 1}: Elegiste ${juego.jugador}, la computadora eligió ${juego.computadora}. Resultado: ${juego.resultado}`;
         historialElem.appendChild(li);
     });
 }
 
-// Función para jugar, llamada al hacer clic en una opción
-function jugar(eleccionJugador) {
+async function jugar(eleccionJugador) {
     const eleccionComp = eleccionComputadora();
-    
-    // Mostrar la elección de la computadora en el DOM
-    eleccionComputadoraElem.textContent = "La computadora eligió: " + eleccionComp;
-
-    // Determinar el resultado y mostrarlo en el DOM
     const resultado = determinarGanador(eleccionJugador, eleccionComp);
+
+    eleccionComputadoraElem.textContent = "La computadora eligió: " + eleccionComp;
     resultadoJuegoElem.textContent = resultado;
 
-    // Guardar el juego en el historial
-    historial.push({
+    const nuevoJuego = {
         jugador: eleccionJugador,
         computadora: eleccionComp,
-        resultado: resultado
-    });
+        resultado: resultado,
+    };
 
-    // Guardar el historial en el localStorage
-    localStorage.setItem("historial", JSON.stringify(historial));
+    historial.push(nuevoJuego);
+    await guardarJuegoEnHistorial(nuevoJuego);
 
-    // Mostrar botón de reiniciar
+    actualizarHistorial();
     botonReiniciar.style.visibility = "visible";
 }
-
-// Función para reiniciar el juego
-function reiniciarJuego() {
-    eleccionComputadoraElem.textContent = "";
-    resultadoJuegoElem.textContent = "";
-    botonReiniciar.style.visibility = "hidden"; // Ocultar nuevamente el botón de reiniciar
-}
-
-// Función para mostrar el historial
 function mostrarHistorial() {
     if (historialElem.style.display === "none") {
-        actualizarHistorial(); // Actualizar el contenido del historial
-        historialElem.style.display = "block"; // Mostrar el historial
-        botonMostrarHistorial.textContent = "Ocultar Historial";
+        actualizarHistorial();
+        historialElem.style.display = "block";
+        botonMostrarHistorial.textContent = "Ocultar historial";
     } else {
-        historialElem.style.display = "none"; // Ocultar el historial
-        botonMostrarHistorial.textContent = "Mostrar Historial";
+        historialElem.style.display = "none";
+        botonMostrarHistorial.textContent = "Mostrar historial";
     }
 }
+
+async function inicializar() {
+    await cargarHistorial();
+}
+inicializar();
+
+

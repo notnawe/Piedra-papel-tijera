@@ -1,0 +1,94 @@
+{
+  "historial": [
+    {
+      "id": "85eb",
+      "jugador": "piedra",
+      "computadora": "tijera",
+      "resultado": "¡Ganaste!"
+    },
+    {
+      "id": "e581",
+      "jugador": "papel",
+      "computadora": "piedra",
+      "resultado": "¡Ganaste!"
+    },
+    {
+      "id": "c6e5",
+      "jugador": "tijera",
+      "computadora": "tijera",
+      "resultado": "Empate"
+    },
+    {
+      "id": "e06f",
+      "jugador": "piedra",
+      "computadora": "papel",
+      "resultado": "Perdiste, la computadora gana."
+    },
+    {
+      "id": "e6b8",
+      "jugador": "papel",
+      "computadora": "tijera",
+      "resultado": "Perdiste, la computadora gana."
+    },
+    {
+      "id": "8938",
+      "jugador": "papel",
+      "computadora": "tijera",
+      "resultado": "Perdiste, la computadora gana."
+    },
+    {
+      "id": "2fef",
+      "jugador": "piedra",
+      "computadora": "piedra",
+      "resultado": "Empate"
+    },
+    {
+      "id": "b79e",
+      "jugador": "papel",
+      "computadora": "piedra",
+      "resultado": "¡Ganaste!"
+    },
+    {
+      "id": "edd3",
+      "jugador": "tijera",
+      "computadora": "papel",
+      "resultado": "¡Ganaste!"
+    },
+    {
+      "id": "0fe3",
+      "jugador": "piedra",
+      "computadora": "papel",
+      "resultado": "Perdiste, la computadora gana."
+    },
+    {
+      "id": "42d0",
+      "jugador": "papel",
+      "computadora": "papel",
+      "resultado": "Empate"
+    },
+    {
+      "id": "3383",
+      "jugador": "tijera",
+      "computadora": "tijera",
+      "resultado": "Empate"
+    },
+    {
+      "id": "af7d",
+      "jugador": "piedra",
+      "computadora": "papel",
+      "resultado": "Perdiste, la computadora gana."
+    },
+    {
+      "id": "d13a",
+      "jugador": "papel",
+      "computadora": "tijera",
+      "resultado": "Perdiste, la computadora gana."
+    },
+    {
+      "id": "9548",
+      "jugador": "papel",
+      "computadora": "papel",
+      "resultado": "Empate"
+    }
+  ]
+}
